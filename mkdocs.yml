@@ -1,0 +1,167 @@
+site_name: Homelab Documentation
+site_description: Complete documentation for Johan's Homelab Infrastructure
+site_author: Johan Hallberg
+site_url: https://docs.staging.hallonen.se
+
+repo_name: johanhallberg/homelab-docs
+repo_url: https://github.com/johanhallberg/homelab-docs
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.action.edit
+    - content.action.view
+  icon:
+    repo: fontawesome/brands/github
+  favicon: assets/favicon.png
+  logo: assets/logo.png
+
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+  - mermaid2:
+      arguments:
+        theme: |
+          ^(JSON.parse(window.localStorage.getItem("/__palette")).index == 1) ?
+          'dark' : 'light'
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
+      cache_safe: true
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - tables
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:materialx.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: johanhallberg
+      repo: homelab-docs
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/johanhallberg
+    - icon: fontawesome/brands/docker
+      link: https://github.com/johanhallberg/k8s-cluster-config
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY
+  version:
+    provider: mike
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Overview: getting-started/overview.md
+    - Quick Setup: getting-started/quick-setup.md
+    - Prerequisites: getting-started/prerequisites.md
+  - Architecture:
+    - Homelab Layout: infrastructure/homelab-layout.md
+    - Cluster Architecture: architecture/cluster-architecture.md
+    - Benefits & ROI: architecture/benefits.md
+    - Hardware Overview: architecture/hardware.md
+  - Setup & Configuration:
+    - Secrets & API Tokens: setup/secrets-configuration.md
+    - Domain & DNS Strategy: setup/domain-and-dns-strategy.md
+    - DNS Setup Guide: setup/dns-setup.md
+    - Migration Guide: setup/migration-guide.md
+  - Kubernetes:
+    - Cluster Setup: kubernetes/cluster-setup.md
+    - GitOps with FluxCD: kubernetes/gitops.md
+    - Monitoring: kubernetes/monitoring.md
+    - Security: kubernetes/security.md
+    - Storage: kubernetes/storage.md
+    - Networking: kubernetes/networking.md
+  - Environment Management:
+    - Staging Status: management/staging-status.md
+    - Production Setup: management/production.md
+    - Environment Comparison: management/environments.md
+  - Applications:
+    - Service Catalog: applications/services.md
+    - Monitoring Stack: applications/monitoring.md
+    - Documentation Site: applications/docs.md
+    - Demo Applications: applications/demos.md
+  - Operations:
+    - Backup & Recovery: operations/backup.md
+    - Maintenance: operations/maintenance.md
+    - Troubleshooting: operations/troubleshooting.md
+    - Updates: operations/updates.md
+  - Reference:
+    - Configuration Examples: reference/configuration.md
+    - Architecture Decisions: reference/adr.md
+    - Glossary: reference/glossary.md

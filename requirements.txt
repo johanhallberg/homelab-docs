@@ -1,0 +1,22 @@
+# MkDocs and core dependencies
+mkdocs==1.5.3
+mkdocs-material==9.5.3
+
+# Plugins for enhanced functionality
+mkdocs-mermaid2-plugin==1.1.1
+mkdocs-plantuml-plugin==1.2.4
+mkdocs-git-revision-date-localized-plugin==1.2.2
+mkdocs-git-authors-plugin==0.7.2
+mkdocs-minify-plugin==0.7.1
+mkdocs-awesome-pages-plugin==2.9.2
+mkdocs-redirects==1.2.1
+
+# Markdown extensions
+pymdown-extensions==10.5
+
+# Image processing
+pillow==10.1.0
+cairosvg==2.7.1
+
+# Git integration
+GitPython==3.1.40
