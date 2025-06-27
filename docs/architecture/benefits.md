@@ -19,15 +19,15 @@ This document outlines the comprehensive benefits of utilizing this advanced Kub
 ```mermaid
 graph TB
     subgraph "Cloud Alternative"
-        CloudCost[Monthly: $400-600<br/>Annual: $5,000-7,000<br/>3-Year: $15,000-21,000]
+        CloudCost["Monthly: $400-600<br/>Annual: $5,000-7,000<br/>3-Year: $15,000-21,000"]
     end
     
     subgraph "Homelab Setup"
-        HomelabCost[Initial: $800-1,200<br/>Annual: $50 electricity<br/>3-Year: $950-1,350]
+        HomelabCost["Initial: $800-1,200<br/>Annual: $50 electricity<br/>3-Year: $950-1,350"]
     end
     
     subgraph "Savings"
-        Savings[Net Savings:<br/>$14,000-19,000<br/>over 3 years]
+        Savings["Net Savings:<br/>$14,000-19,000<br/>over 3 years"]
     end
     
     CloudCost --> Savings
@@ -85,17 +85,17 @@ graph TB
 ```mermaid
 graph LR
     subgraph "Skills Gained"
-        K8s[Kubernetes<br/>Administration]
-        GitOps[GitOps<br/>Engineering]
-        Mon[Observability<br/>Engineering]
-        Sec[Security<br/>Engineering]
+        K8s["Kubernetes<br/>Administration"]
+        GitOps["GitOps<br/>Engineering"]
+        Mon["Observability<br/>Engineering"]
+        Sec["Security<br/>Engineering"]
     end
     
     subgraph "Career Paths"
-        SRE[Site Reliability<br/>Engineer<br/>$130k-200k]
-        PE[Platform<br/>Engineer<br/>$120k-180k]
-        DevOps[DevOps<br/>Engineer<br/>$100k-160k]
-        Arch[Cloud<br/>Architect<br/>$150k-250k]
+        SRE["Site Reliability<br/>Engineer<br/>$130k-200k"]
+        PE["Platform<br/>Engineer<br/>$120k-180k"]
+        DevOps["DevOps<br/>Engineer<br/>$100k-160k"]
+        Arch["Cloud<br/>Architect<br/>$150k-250k"]
     end
     
     K8s --> SRE
@@ -142,15 +142,15 @@ graph LR
 ```mermaid
 graph TB
     subgraph "Current State"
-        Single[Single Node<br/>Staging]
-        Multi[3-Node<br/>Production]
+        Single["Single Node<br/>Staging"]
+        Multi["3-Node<br/>Production"]
     end
     
     subgraph "Growth Path"
-        Edge[Edge Computing<br/>IoT Integration]
-        Federation[Cluster<br/>Federation]
-        Hybrid[Hybrid Cloud<br/>Integration]
-        ML[ML/AI<br/>Workloads]
+        Edge["Edge Computing<br/>IoT Integration"]
+        Federation["Cluster<br/>Federation"]
+        Hybrid["Hybrid Cloud<br/>Integration"]
+        ML["ML/AI<br/>Workloads"]
     end
     
     Single --> Multi
@@ -262,17 +262,17 @@ graph TB
 ```mermaid
 graph LR
     subgraph "Current Trends"
-        Edge[Edge Computing]
-        Green[Green IT]
-        AI[AI/ML at Edge]
-        Multi[Multi-Cloud]
+        Edge["Edge Computing"]
+        Green["Green IT"]
+        AI["AI/ML at Edge"]
+        Multi["Multi-Cloud"]
     end
     
     subgraph "Homelab Alignment"
-        ARM[ARM Architecture]
-        Efficiency[Energy Efficiency]
-        GPU[GPU Support Ready]
-        Portable[Cloud Portable]
+        ARM["ARM Architecture"]
+        Efficiency["Energy Efficiency"]
+        GPU["GPU Support Ready"]
+        Portable["Cloud Portable"]
     end
     
     Edge --> ARM
