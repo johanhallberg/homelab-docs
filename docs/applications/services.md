@@ -36,4 +36,11 @@ This document provides an overview of the services deployed in your Kubernetes h
 - **Maintainer**: 
 - **Links**: [Service URL](https://docs.staging.hallonen.se)
 
+
+### docs-production
+- **Use Case**: Production homelab documentation via Cloudflare tunnel
+- **Why Selected**: Public access to comprehensive homelab documentation
+- **Maintainer**: Homelab Team
+- **Links**: [Service URL](https://docs.hallonen.se)
+
 ---
