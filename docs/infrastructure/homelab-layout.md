@@ -15,10 +15,12 @@ This document details the physical and logical layout of the homelab setup, incl
 ### Topology Map
 
 ```mermaid
-graph TD;
-  Internet <---> Router <--> Switch <--> [Server 1]
-                                        <--> [Server 2]
-                                        <--> [Server 3]
+graph TD
+  Internet <--> Router
+  Router <--> Switch
+  Switch <--> Server1[Server 1]
+  Switch <--> Server2[Server 2]
+  Switch <--> Server3[Server 3]
 ```
 
 ### Network Segmentation
