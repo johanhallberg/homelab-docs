@@ -1,5 +1,48 @@
 # DNS Configuration for Homelab
 
+This document provides a detailed guide on setting up DNS for your homelab services, highlighting configurations for different environments, and utilizing DNS providers like Cloudflare.
+
+## Domain Structure
+
+Organization of services under the `hallonen.se` domain includes configuration for staging and production environments, ensuring consistency and accessibility.
+
+### Environment-Specific Setup
+
+- **Staging Environment**: Setup subdomains for various services using wildcard DNS entries for simpler management.
+- **Production Environment**: Designate specific IP allocations for domains, leveraging local network configurations.
+
+## Cloudflare DNS Configuration
+
+### Setting up DNS Records
+
+- **Staging**: Use wildcard entries to route traffic to the appropriate service. Ensure DNS-only proxy status for simplicity.
+- **Production**: Assign IPs unique to the production environment, maintaining security settings through proper DNS record registration.
+
+### Securing with Cloudflare
+
+- **API Token Management**: Manage access and update DNS settings via API tokens, ensuring proper permissions are applied.
+- **Let's Encrypt Integration**: Utilize automatic certificate management with Cloudflare's DNS-01 challenge for enhanced security.
+
+## Local DNS Configuration
+
+### Managing Local Entries
+
+- **/etc/hosts File**: Provide entries in the hosts file for development environments, allowing for seamless local testing.
+
+## TLS Management
+
+### Certificate Management with Let's Encrypt
+
+- **Staging Certificates**: Test deployments with development certificates, acknowledging potential browser warnings.
+- **Production Certificates**: Deploy trusted certificates, ensuring compliance with security standards and facilitating encrypted communication.
+
+## Troubleshooting DNS Issues
+
+- Use tools like `dig`, `nslookup`, and kubectl to diagnose and resolve potential DNS and certificate challenges.
+- Keep DNS records updated and validate configurations on a routine basis to prevent outages.
+
+# DNS Configuration for Homelab
+
 This document describes how to set up DNS for your homelab services.
 
 ## Domain Structure
