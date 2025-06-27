@@ -29,4 +29,11 @@ This document provides an overview of the services deployed in your Kubernetes h
 - **Maintainer**: 
 - **Links**: [Service URL](https://simple.staging.hallonen.se)
 
+
+### docs
+- **Use Case**: Kubernetes service in docs namespace
+- **Why Selected**: 
+- **Maintainer**: 
+- **Links**: [Service URL](https://docs.staging.hallonen.se)
+
 ---
