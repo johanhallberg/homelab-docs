@@ -3,7 +3,7 @@
 discord:
   # Discord webhook URL for #homelab-general channel
   # Set DISCORD_HOMELAB_WEBHOOK environment variable or update here
-  webhook_url: "${DISCORD_HOMELAB_WEBHOOK}"
+  webhook_url: null  # Will use environment variable
   channel: "#homelab-general"
   
 uptime_kuma:
@@ -12,8 +12,8 @@ uptime_kuma:
   # Set these environment variables:
   # - UPTIME_KUMA_USERNAME
   # - UPTIME_KUMA_PASSWORD
-  username: "${UPTIME_KUMA_USERNAME}"
-  password: "${UPTIME_KUMA_PASSWORD}"
+  username: null  # Will use environment variable
+  password: null  # Will use environment variable
   
 documentation:
   # Auto-commit documentation changes
