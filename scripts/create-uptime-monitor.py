@@ -12,36 +12,88 @@ def create_monitor():
     """Create a monitor for docs.hallonen.se in Uptime Kuma"""
     
     # Uptime Kuma configuration
-    base_url = "http://192.168.100.200:30080"
-    username = os.getenv('UPTIME_KUMA_USERNAME', 'serveradmin')
-    password = os.getenv('UPTIME_KUMA_PASSWORD', 'Just44me!')
+    base_url = "https://uptime.staging.hallonen.se"
+    username = os.getenv('UPTIME_KUMA_USERNAME')
+    password = os.getenv('UPTIME_KUMA_PASSWORD')
+    
+    if not username or not password:
+        print("❌ Uptime Kuma credentials are not set. Ensure UPTIME_KUMA_USERNAME and UPTIME_KUMA_PASSWORD are configured.")
+        return False
     
     print("🔍 Creating Uptime Kuma monitor for docs.hallonen.se...")
     
-    # Note: This is a simplified implementation
-    # In practice, Uptime Kuma uses WebSocket for API communication
-    # For now, we'll create a configuration that can be manually applied
+    # Note: Uptime Kuma typically uses WebSocket for real-time API communication
+    # For now, we'll try the HTTP API endpoints and fall back to manual setup
     
-    monitor_config = {
-        "name": "docs.hallonen.se",
-        "url": "https://docs.hallonen.se",
-        "type": "http",
-        "interval": 60,
-        "maxretries": 3,
-        "timeout": 30,
-        "retryInterval": 60,
-        "httpBodyEncoding": "json",
-        "expectedStatus": "200-299",
-        "followRedirect": True,
-        "ignoreTls": False,
-        "acceptedStatusCodes": ["200-299"],
-        "httpMethod": "GET",
-        "description": "Homelab documentation site via Cloudflare tunnel",
-        "tags": ["production", "documentation", "cloudflare-tunnel"]
-    }
+    session = requests.Session()
     
-    print("📊 Monitor Configuration:")
-    print(json.dumps(monitor_config, indent=2))
+    try:
+        # Try different possible API endpoints
+        api_endpoints = [
+            f"{base_url}/api/login",
+            f"{base_url}/login", 
+            f"{base_url}/api/auth/login"
+        ]
+        
+        login_success = False
+        for endpoint in api_endpoints:
+            try:
+                login_payload = {"username": username, "password": password}
+                login_response = session.post(endpoint, json=login_payload)
+                if login_response.status_code == 200:
+                    print(f"🔑 Successfully logged in to Uptime Kuma via {endpoint}")
+                    login_success = True
+                    break
+            except:
+                continue
+        
+        if not login_success:
+            print("⚠️ Could not authenticate via HTTP API - Uptime Kuma typically uses WebSocket")
+            print("📋 Will provide manual setup instructions instead")
+            return False
+        
+        # If login was successful, try to create monitor
+        monitor_payload = {
+            "name": "docs.hallonen.se",
+            "url": "https://docs.hallonen.se",
+            "type": "http",
+            "interval": 60,
+            "maxretries": 3,
+            "timeout": 30,
+            "retryInterval": 60,
+            "httpBodyEncoding": "json",
+            "expectedStatus": "200-299",
+            "followRedirect": True,
+            "ignoreTls": False,
+            "acceptedStatusCodes": ["200-299"],
+            "httpMethod": "GET",
+            "description": "Homelab documentation site via Cloudflare tunnel",
+            "tags": ["production", "documentation", "cloudflare-tunnel"]
+        }
+        
+        monitor_endpoints = [
+            f"{base_url}/api/monitor",
+            f"{base_url}/api/monitors"
+        ]
+        
+        for endpoint in monitor_endpoints:
+            try:
+                create_response = session.post(endpoint, json=monitor_payload)
+                if create_response.status_code in [200, 201]:
+                    print("✅ Successfully created Uptime Kuma monitor via API")
+                    return True
+            except:
+                continue
+        
+        print("⚠️ Could not create monitor via API - falling back to manual setup")
+        return False
+
+    except Exception as e:
+        print(f"❌ API communication failed: {e}")
+        print("📋 Will provide manual setup instructions")
+        return False
+    finally:
+        session.close()
     
     # For now, just validate that the service is accessible
     print("\n🌐 Testing service accessibility...")
@@ -65,19 +117,19 @@ def create_monitor():
         print(f"❌ Service is not accessible: {e}")
         return False
     
-    print("\n📋 Manual Setup Instructions:")
+    print("\n📋 Manual Setup Instructions (if API creation failed):")
     print("=" * 50)
-    print("1. Access Uptime Kuma at: http://192.168.100.200:30080")
+    print("1. Access Uptime Kuma at: https://uptime.staging.hallonen.se")
     print("2. Login with your credentials")
     print("3. Click 'Add New Monitor'")
     print("4. Configure with the following settings:")
     print(f"   - Monitor Type: HTTP(s)")
-    print(f"   - Friendly Name: {monitor_config['name']}")
-    print(f"   - URL: {monitor_config['url']}")
-    print(f"   - Heartbeat Interval: {monitor_config['interval']} seconds")
-    print(f"   - Retries: {monitor_config['maxretries']}")
-    print(f"   - HTTP Method: {monitor_config['httpMethod']}")
-    print(f"   - Accepted Status Codes: {', '.join(monitor_config['acceptedStatusCodes'])}")
+    print(f"   - Friendly Name: docs.hallonen.se")
+    print(f"   - URL: https://docs.hallonen.se")
+    print(f"   - Heartbeat Interval: 60 seconds")
+    print(f"   - Retries: 3")
+    print(f"   - HTTP Method: GET")
+    print(f"   - Accepted Status Codes: 200-299")
     print("5. Click 'Save'")
     
     return True

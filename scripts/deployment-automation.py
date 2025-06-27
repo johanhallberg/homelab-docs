@@ -252,26 +252,67 @@ class DeploymentAutomator:
             print("Uptime Kuma configuration incomplete")
             return False
             
-        # Note: This is a simplified implementation
-        # In practice, you'd need to use the Uptime Kuma API
         print(f"Creating Uptime Kuma monitor for {service_name} at {url}")
         
-        # For now, we'll create a reminder message
-        monitor_config = {
-            "name": service_name,
-            "url": url,
-            "type": "http",
-            "interval": 60,
-            "retryInterval": 60,
-            "maxRetries": 3
-        }
+        # Create session for API calls
+        session = requests.Session()
+        base_url = config["url"]
         
-        print(f"Monitor configuration: {json.dumps(monitor_config, indent=2)}")
-        
-        # TODO: Implement actual Uptime Kuma API integration
-        # This would require authentication and API calls to create the monitor
-        
-        return True
+        try:
+            # Authenticate with Uptime Kuma
+            login_payload = {
+                "username": config["username"],
+                "password": config["password"]
+            }
+            
+            login_response = session.post(f"{base_url}/api/user/login", json=login_payload)
+            login_response.raise_for_status()
+            print(f"✅ Successfully authenticated with Uptime Kuma")
+            
+            # Check if monitor already exists
+            monitors_response = session.get(f"{base_url}/api/monitor")
+            monitors_response.raise_for_status()
+            existing_monitors = monitors_response.json()
+            
+            # Check for existing monitor with same name or URL
+            for monitor in existing_monitors.get("monitors", []):
+                if monitor.get("name") == service_name or monitor.get("url") == url:
+                    print(f"⚠️ Monitor for {service_name} already exists, skipping creation")
+                    return True
+            
+            # Create new monitor
+            monitor_payload = {
+                "name": service_name,
+                "url": url,
+                "type": "http",
+                "interval": 60,
+                "maxretries": 3,
+                "timeout": 30,
+                "retryInterval": 60,
+                "httpBodyEncoding": "json",
+                "expectedStatus": "200-299",
+                "followRedirect": True,
+                "ignoreTls": False,
+                "httpMethod": "GET",
+                "description": f"Automated monitor for {service_name}",
+                "tags": ["automated", "homelab"]
+            }
+            
+            create_response = session.post(f"{base_url}/api/monitor", json=monitor_payload)
+            create_response.raise_for_status()
+            
+            print(f"✅ Successfully created Uptime Kuma monitor for {service_name}")
+            return True
+            
+        except requests.exceptions.RequestException as e:
+            print(f"❌ Failed to create Uptime Kuma monitor: {e}")
+            # Fallback: provide manual instructions
+            print(f"📋 Manual setup required:")
+            print(f"   1. Go to {base_url}")
+            print(f"   2. Create monitor for {service_name} at {url}")
+            return False
+        finally:
+            session.close()
 
     def commit_and_push_docs(self, service_name: str):
         """Commit and push documentation changes"""

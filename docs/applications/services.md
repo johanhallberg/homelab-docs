@@ -43,4 +43,11 @@ This document provides an overview of the services deployed in your Kubernetes h
 - **Maintainer**: Homelab Team
 - **Links**: [Service URL](https://docs.hallonen.se)
 
+
+### homepage
+- **Use Case**: Kubernetes service in homepage namespace
+- **Why Selected**: 
+- **Maintainer**: 
+- **Links**: [Service URL](https://dashboard.staging.hallonen.se)
+
 ---
