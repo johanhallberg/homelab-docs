@@ -1,0 +1,42 @@
+# Homelab Deployment Automation Configuration
+
+discord:
+  # Discord webhook URL for #homelab-general channel
+  # Set DISCORD_HOMELAB_WEBHOOK environment variable or update here
+  webhook_url: "${DISCORD_HOMELAB_WEBHOOK}"
+  channel: "#homelab-general"
+  
+uptime_kuma:
+  # Uptime Kuma configuration
+  url: "https://uptime.staging.hallonen.se"
+  # Set these environment variables:
+  # - UPTIME_KUMA_USERNAME
+  # - UPTIME_KUMA_PASSWORD
+  username: "${UPTIME_KUMA_USERNAME}"
+  password: "${UPTIME_KUMA_PASSWORD}"
+  
+documentation:
+  # Auto-commit documentation changes
+  auto_commit: true
+  # Commit message template
+  commit_message_template: "docs: Update service catalog for {service_name}"
+  
+# Service detection patterns
+detection:
+  # File patterns to monitor for new services
+  ingress_patterns:
+    - "**/ingressroute.yaml"
+    - "**/ingress.yaml"
+  
+  # Namespaces to monitor
+  monitored_namespaces:
+    - "default"
+    - "monitoring"
+    - "docs"
+    - "demo"
+    - "staging"
+    
+# Default service information for auto-detected services
+defaults:
+  maintainer: "Homelab Team"
+  why_selected: "Selected for homelab functionality"

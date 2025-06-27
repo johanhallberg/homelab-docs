@@ -1,3 +1,108 @@
+# 🚀 Getting Started with Homelab
+
+Welcome to the ultimate homelab guide for setting up your personal cloud infrastructure using Kubernetes and other modern technologies.
+
+## 🛠️ Setup and Configuration
+
+### Prerequisites
+
+Ensure the following:
+
+- **Hardware Setup**: Servers with recommended specifications (see [Hardware Overview](../hardware/overview.md))
+- **Network Configuration**: Proper VLAN configuration and router setup
+- **Internet Access**: Stable internet connection to pull images and updates
+- **Git Repositories**: Access to both k8s-cluster-config and homelab-docs repositories
+
+### Initial Setup
+
+1. **Server Configuration**: Ensure your servers meet the minimum hardware requirements.
+2. **Network Configuration**: Set up VLANs and IP addressing.
+3. **Base OS Installation**: Install Linux (e.g., Ubuntu 20.04 LTS) on all nodes correctly.
+4. **Kubernetes Cluster**: Follow the [Cluster Setup Guide](../kubernetes/cluster-setup.md)
+
+### 🤖 Deployment Automation
+
+The homelab includes a comprehensive automation system that handles:
+
+#### Automated Documentation Management
+- **Service Catalog Updates**: Automatically detects new services and updates documentation
+- **Real-time Synchronization**: Keeps service information current across deployments
+- **Git Integration**: Commits and pushes documentation changes automatically
+
+#### Discord Integration
+- **Deployment Notifications**: Real-time alerts to #homelab-general channel
+- **Status Updates**: Service deployment, update, and removal notifications
+- **Rich Messaging**: Detailed information about changes with links to documentation
+
+#### Uptime Monitoring
+- **Automatic Monitor Creation**: Sets up Uptime Kuma monitors for external services
+- **Health Checks**: Configures appropriate monitoring intervals and thresholds
+- **Alert Integration**: Connects monitoring alerts to notification systems
+
+#### Setup Instructions
+
+**Quick Setup**:
+```bash
+# Navigate to homelab-docs repository
+cd /path/to/homelab-docs
+
+# Run the automated setup script
+bash scripts/setup-automation.sh
+```
+
+**Manual Configuration**:
+```bash
+# Set environment variables
+export DISCORD_HOMELAB_WEBHOOK="your_discord_webhook_url"
+export UPTIME_KUMA_USERNAME="your_username"
+export UPTIME_KUMA_PASSWORD="your_password"
+
+# Install dependencies
+pip3 install --user pyyaml requests
+
+# Make scripts executable
+chmod +x scripts/deployment-automation.py
+chmod +x scripts/git-post-commit-hook.sh
+
+# Install Git hook for automatic triggers
+cp scripts/git-post-commit-hook.sh ../k8s-cluster-config/.git/hooks/post-commit
+chmod +x ../k8s-cluster-config/.git/hooks/post-commit
+```
+
+**Usage Examples**:
+```bash
+# Add a new service manually
+python3 scripts/deployment-automation.py \
+  --action add \
+  --name "MyApp" \
+  --url "https://myapp.staging.hallonen.se" \
+  --description "My awesome application"
+
+# Scan for new services automatically
+python3 scripts/deployment-automation.py --action scan
+
+# Update an existing service
+python3 scripts/deployment-automation.py \
+  --action update \
+  --name "MyApp" \
+  --description "Updated application with new features"
+```
+
+For detailed automation documentation, see [Deployment Automation Guide](../setup/deployment-automation.md).
+
+### GitOps Workflow
+
+The homelab utilizes GitOps for infrastructure management:
+
+- **FluxCD**: Automated deployment from Git repositories
+- **Multi-Environment**: Separate staging and production configurations
+- **Dependency Management**: Renovate for automated updates
+- **Security Scanning**: Integrated vulnerability assessment
+
+## 💡 Next Steps
+
+Proceed to set up Kubernetes using the cluster setup guide and enhance your infrastructure by integrating additional applications as needed.
+
 # 🚀 Getting Started with the Homelab
 
 Welcome to the comprehensive documentation for Johan's homelab infrastructure! This guide will help you understand the architecture, get started with the environment, and make the most of the available resources.

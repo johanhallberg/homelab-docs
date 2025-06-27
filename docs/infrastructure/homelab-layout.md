@@ -1,3 +1,48 @@
+# 🏠 Homelab Infrastructure Layout
+
+This document details the physical and logical layout of the homelab setup, including hardware specifications, network topology, and service distribution for efficient cluster management.
+
+## 📋 Hardware Overview
+
+### Server Specifications
+
+- **Server 1**: Intel Xeon 16-Core, 128GB RAM, 2TB NVMe SSD
+- **Server 2**: AMD Ryzen 8-Core, 64GB RAM, 1TB SSD
+- **Server 3**: Intel i7 6-Core, 32GB RAM, 500GB NVMe SSD
+
+## 🌐 Network Topology
+
+### Topology Map
+
+```mermaid
+graph TD;
+  Internet <---> Router <--> Switch <--> [Server 1]
+                                        <--> [Server 2]
+                                        <--> [Server 3]
+```
+
+### Network Segmentation
+
+- **VLAN 10 (Management)**: 192.168.10.0/24
+- **VLAN 20 (Storage)**: 192.168.20.0/24
+- **VLAN 30 (Guest)**: 192.168.30.0/24
+
+## 📡 Service Allocation
+
+### Cluster Distribution
+
+- **K8s Master Nodes**: Server 1, Server 2
+- **K8s Worker Nodes**: Server 1, Server 3
+- **Storage Nodes**: Server 1, Server 2
+
+## 🚀 Deployment Process
+
+Deployment strategies leverage GitOps through a combination of FluxCD and automated CI/CD pipelines for seamless operation deployment across the homelab environment.
+
+---
+
+This setup ensures high availability and flexibility to adapt to the evolving needs of both development and production workloads.
+
 # 🏗️ Homelab Architecture
 
 This page documents the complete architecture and layout of Johan's homelab infrastructure, designed for learning, experimentation, and running production-like workloads.
