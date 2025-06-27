@@ -1,0 +1,25 @@
+# 📦 Service Catalog
+
+This document provides an overview of the services deployed in your Kubernetes homelab, with details about their use cases, selection reasons, and maintainer links.
+
+## 🗂️ Catalog of Services
+
+### Traefik
+- **Use Case**: Ingress controller managing inbound traffic, SSL termination.
+- **Why Selected**: Offers dynamic configuration and advanced routing capabilities.
+- **Maintainer**: [Traefik Labs](https://traefik.io)
+- **Links**: [GitHub](https://github.com/traefik/traefik), [Website](https://traefik.io)
+
+### Longhorn
+- **Use Case**: Efficient block storage management.
+- **Why Selected**: Kubernetes integration, lightweight footprint for homelabs.
+- **Maintainer**: [Rancher Labs](https://www.rancher.com)
+- **Links**: [GitHub](https://github.com/longhorn/longhorn), [Website](https://longhorn.io)
+
+### Blocky
+- **Use Case**: DNS with ad-blocking, replacing Pi-hole.
+- **Why Selected**: Custom filtering and caching.
+- **Maintainer**: [Blocky Team](https://github.com/0xERR0R/blocky)
+- **Links**: [GitHub](https://github.com/0xERR0R/blocky)
+
+---
