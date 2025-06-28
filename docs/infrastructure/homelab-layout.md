@@ -6,9 +6,14 @@ This document details the physical and logical layout of the homelab setup, incl
 
 ### Server Specifications
 
-- **Server 1**: Intel Xeon 16-Core, 128GB RAM, 2TB NVMe SSD
-- **Server 2**: AMD Ryzen 8-Core, 64GB RAM, 1TB SSD
-- **Server 3**: Intel i7 6-Core, 32GB RAM, 500GB NVMe SSD
+#### Production Cluster (Turing Pi 2)
+- **RK1 Module 1**: ARM64 8-Core, 16GB RAM, Control Plane + Worker + Longhorn
+- **RK1 Module 2**: ARM64 8-Core, 16GB RAM, Control Plane + Worker + Longhorn  
+- **RK1 Module 3**: ARM64 8-Core, 16GB RAM, Control Plane + Worker + Longhorn
+- **Future RK1 Module 4**: ARM64 8-Core, 16GB RAM (expansion slot available)
+
+#### Staging Environment
+- **Raspberry Pi 5**: ARM64 4-Core @ 2.4GHz, 8GB RAM, 64GB SD Card + 1.8TB NVMe
 
 ## 🌐 Network Topology
 
@@ -18,24 +23,32 @@ This document details the physical and logical layout of the homelab setup, incl
 graph TD
   Internet <--> Router
   Router <--> Switch
-  Switch <--> Server1[Server 1]
-  Switch <--> Server2[Server 2]
-  Switch <--> Server3[Server 3]
+  Switch <--> Staging[Raspberry Pi 5]
+  Switch <--> Production[Turing Pi 2]
+  Production <--> RK1_1[RK1 Module 1]
+  Production <--> RK1_2[RK1 Module 2]
+  Production <--> RK1_3[RK1 Module 3]
 ```
 
 ### Network Segmentation
 
-- **VLAN 10 (Management)**: 192.168.10.0/24
-- **VLAN 20 (Storage)**: 192.168.20.0/24
-- **VLAN 30 (Guest)**: 192.168.30.0/24
+- **VLAN 100 (ServerLAN)**: 192.168.100.0/24 - Kubernetes clusters and infrastructure
+- **VLAN 30 (MainLAN)**: 192.168.30.0/24 - Trusted client devices
+- **VLAN 15 (IoT/Guest)**: 192.168.15.0/24 - IoT devices and guest access
 
 ## 📡 Service Allocation
 
 ### Cluster Distribution
 
-- **K8s Master Nodes**: Server 1, Server 2
-- **K8s Worker Nodes**: Server 1, Server 3
-- **Storage Nodes**: Server 1, Server 2
+#### Production Cluster (Turing Pi 2)
+- **RK1 Module 1**: Control Plane + Worker + Longhorn Storage
+- **RK1 Module 2**: Control Plane + Worker + Longhorn Storage  
+- **RK1 Module 3**: Control Plane + Worker + Longhorn Storage
+- **Total Resources**: 24 ARM64 cores, 48GB RAM, 18 TOPS NPU
+
+#### Staging Environment
+- **Raspberry Pi 5**: Single-node cluster for development and testing
+- **Resources**: 4 ARM64 cores @ 2.4GHz, 8GB RAM, 1.8TB NVMe storage
 
 ## 🚀 Deployment Process
 
