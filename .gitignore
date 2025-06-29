@@ -1,0 +1,94 @@
+# Security - Never commit secrets or sensitive data
+**/secrets/
+**/secret/
+kubernetes-secrets/
+k8s-secrets/
+**/*secret*.yaml
+**/*secret*.yml
+**/*secrets*.yaml
+**/*secrets*.yml
+**/credentials/
+**/*credential*.yaml
+**/*credential*.yml
+**/*token*.yaml
+**/*token*.yml
+**/*key*.yaml
+**/*key*.yml
+**/*password*.yaml
+**/*password*.yml
+**/*webhook*.yaml
+**/*webhook*.yml
+
+# Environment files that may contain secrets
+.env
+.env.*
+*.env
+
+# SSL/TLS certificates and keys
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# SSH keys
+id_rsa
+id_ecdsa
+id_ed25519
+*.pub
+
+# Backup files that might contain sensitive data
+*.bak
+*.backup
+*.old
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# MkDocs
+site/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
